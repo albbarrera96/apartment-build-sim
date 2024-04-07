@@ -103,12 +103,12 @@ function App() {
   return (
     <>
       <main className="container mx-auto px-8 py-8">
-        <h1 className="text-3xl font-bold uppercase">Family builder</h1>
+        <h1 className="text-4xl font-bold uppercase">Family builder</h1>
         <article className="my-8">
-          <h2 className="text-2xl font-bold mb-4">Family: {family.family_name}</h2>
+          <h2 className="text-3xl font-bold mb-4">Family: {family.family_name}</h2>
           <div className="flex gap-8">
             <section className="w-1/2">
-              <h3 className="text-xl font-bold mb-2">Father</h3>
+              <h3 className="text-2xl font-bold mb-2">Father</h3>
               <div className="bg-white p-4 rounded-lg shadow-md border">
                 <p><strong className="capitalize">Name:</strong> {family.father.firstName} {family.father.lastName}</p>
                 <p><strong className="capitalize">Job:</strong> <span className="capitalize">{family.father.job}</span></p>
@@ -116,7 +116,7 @@ function App() {
               </div>
             </section>
             <section className="w-1/2">
-              <h3 className="text-xl font-bold mb-2">Mother</h3>
+              <h3 className="text-2xl font-bold mb-2">Mother</h3>
               <div className="bg-white p-4 rounded-lg shadow-md border">
                 <p><strong className="capitalize">Name:</strong> {family.mother.firstName} {family.mother.lastName}</p>
                 <p><strong className="capitalize">Job:</strong> <span className="capitalize"> {family.mother.job} </span></p>
@@ -125,12 +125,12 @@ function App() {
             </section>
           </div>
           <section className="w-full mt-8">
-              <h3 className="text-xl font-bold mb-2">Children</h3>
+              <h3 className="text-2xl font-bold mb-2">Children</h3>
               <div className="bg-white px-8 py-4 rounded-lg shadow-md border">
                 {family.children.length > 0 ? (
                   <ol>
                     {family.children.map((child, index) => (
-                      <li key={index}>
+                      <li key={index} className='my-2'>
                         <ol>
                           <li className='list-disc'>
                             <strong className="capitalize">Name:</strong> {child.firstName} {child.lastName}
