@@ -1,5 +1,6 @@
 import Names from './assets/names.json'
 import personality_traits from './assets/personality_traits.json'
+import jobs from './assets/jobs.json'
 
 const male_first_names: string[] = Names.male_first_names;
 const female_first_names:string[] = Names.female_first_names;
@@ -23,16 +24,30 @@ function App() {
     return personality;
   }
 
+  function generateJob(gender:string) {
+    var job:string = '';
+    if(gender === "male"){
+      job = jobs.male_jobs[Math.floor(Math.random() * jobs.male_jobs.length)];
+    }
+    else{
+      job = jobs.female_jobs[Math.floor(Math.random() * jobs.female_jobs.length)];
+    }
+    return job;
+  }
+
   function generateMaleNPC() {
     const firstName = male_first_names[Math.floor(Math.random() * male_first_names.length)];
     const lastName = last_names[Math.floor(Math.random() * last_names.length)];
     const personality = generatePersonality(4);
     const img = `https://thispersondoesnotexist.com/`;
+    const gender:string = 'male';
+    const job = generateJob(gender);
     const male_npc = {
       personality,
       firstName,
       lastName,
-      gender: 'male',
+      gender,
+      job,
       img,
       age: (Math.floor(Math.random() * 100) + 18)
     };
@@ -44,12 +59,15 @@ function App() {
     const lastName = last_names[Math.floor(Math.random() * last_names.length)];
     const personality = generatePersonality(4)
     const img = `https://thispersondoesnotexist.com/`;
+    const gender:string = 'female';
+    const job = generateJob(gender)
     const female_npc = {
       personality,
       firstName,
       lastName,
-      gender: 'female',
       img,
+      gender,
+      job,
       age: (Math.floor(Math.random() * 100) + 18)
     };
     return female_npc;
@@ -73,7 +91,10 @@ function App() {
       if (child.age > family.father.age || child.age > family.mother.age) {
         child.age = Math.min(family.father.age, family.mother.age) - 18;
       }
-      family.children.push(child);
+      const is_duplicated_child = family.children.some((c) => c.firstName === child.firstName);
+      if (!is_duplicated_child) {
+        family.children.push(child);
+      }
     }
     return family;
   };
@@ -85,27 +106,47 @@ function App() {
         <h1 className="text-3xl font-bold uppercase">Family builder</h1>
         <article className="my-8">
           <h2 className="text-2xl font-bold mb-4">Family: {family.family_name}</h2>
-          <div className="flex d-flex gap-8">
-            <section>
-              <h3 className="text-xl font-bold">Father</h3>
-              <p>{family.father.firstName} {family.father.lastName} <small>({family.father.personality})</small></p>
+          <div className="flex gap-8">
+            <section className="w-1/2">
+              <h3 className="text-xl font-bold mb-2">Father</h3>
+              <div className="bg-white p-4 rounded-lg shadow-md border">
+                <p><strong className="capitalize">Name:</strong> {family.father.firstName} {family.father.lastName}</p>
+                <p><strong className="capitalize">Job:</strong> <span className="capitalize">{family.father.job}</span></p>
+                <p><strong className="capitalize">Profile: </strong> {family.father.personality}</p>
+              </div>
             </section>
-            <section>
-              <h3 className="text-xl font-bold">Mother</h3>
-              <p>{family.mother.firstName} {family.mother.lastName}  <small>({family.mother.personality})</small></p>
-            </section>
-            <section>
-              <h3 className="text-xl font-bold">Children:</h3>
-              <ul>
-                {family.children.length > 0 ? family.children.map((child, index) => (
-                  <li key={index}>
-                    {child.firstName} {child.lastName}  <small>({child.personality})</small>
-                  </li>
-                )) : <li>No Children</li>
-                }
-              </ul>
+            <section className="w-1/2">
+              <h3 className="text-xl font-bold mb-2">Mother</h3>
+              <div className="bg-white p-4 rounded-lg shadow-md border">
+                <p><strong className="capitalize">Name:</strong> {family.mother.firstName} {family.mother.lastName}</p>
+                <p><strong className="capitalize">Job:</strong> <span className="capitalize"> {family.mother.job} </span></p>
+                <p><strong className="capitalize">Profile: </strong> {family.mother.personality}</p>
+              </div>
             </section>
           </div>
+          <section className="w-full mt-8">
+              <h3 className="text-xl font-bold mb-2">Children</h3>
+              <div className="bg-white px-8 py-4 rounded-lg shadow-md border">
+                {family.children.length > 0 ? (
+                  <ol>
+                    {family.children.map((child, index) => (
+                      <li key={index}>
+                        <ol>
+                          <li className='list-disc'>
+                            <strong className="capitalize">Name:</strong> {child.firstName} {child.lastName}
+                          </li>
+                          <li>
+                            <strong className="capitalize">Profile:</strong> {child.personality}
+                          </li>
+                        </ol>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <p>No Children</p>
+                )}
+              </div>
+            </section>
         </article>
       </main>
     </>

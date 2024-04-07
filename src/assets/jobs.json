@@ -1,0 +1,41 @@
+{
+    "male_jobs":[
+        "doctor",
+        "engineer",
+        "scientist",
+        "programmer",
+        "teacher",
+        "professor",
+        "lawyer",
+        "judge",
+        "businessman",
+        "policeman",
+        "fireman",
+        "soldier",
+        "carpenter",
+        "plumber",
+        "mechanic",
+        "driver",
+        "electrician"
+    ],
+    "female_jobs": [
+        "nurse",
+        "secretary",
+        "librarian",
+        "housewife",
+        "waitress",
+        "maid",
+        "receptionist",
+        "hairdresser",
+        "doctor",
+        "teacher",
+        "professor",
+        "lawyer",
+        "judge",
+        "businesswoman",
+        "policewoman",
+        "programmer",
+        "dancer",
+        "singer"
+    ]
+}
