@@ -6,7 +6,6 @@ const male_first_names: string[] = Names.male_first_names;
 const female_first_names:string[] = Names.female_first_names;
 const last_names:string[] = Names.last_names;
 
-
 function App() {
   function checkIfCanCommitACrime(personality:string[]) {
     let bad_traits = [
@@ -140,7 +139,9 @@ function App() {
   return (
     <>
       <main className="container mx-auto px-8 py-8">
-        <h1 className="text-4xl font-bold uppercase">Family builder</h1>
+        <div className="flex d-flex">
+          <h1 className="text-4xl font-bold uppercase">Family builder</h1>
+        </div>
         <article className="my-8">
           <h2 className="text-3xl font-bold mb-4">Family: {family.family_name}</h2>
           <div className="flex gap-8">
