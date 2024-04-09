@@ -8,6 +8,39 @@ const last_names:string[] = Names.last_names;
 
 
 function App() {
+  function checkIfCanCommitACrime(personality:string[]) {
+    let bad_traits = [
+      "Ambitious",
+      "Selfish",
+      "Arrogant",
+      "Dishonest",
+      "Pessimistic",
+      "Insecure",
+      "Impatient",
+      "Lazy",
+      "Cynical",
+      "Stubborn",
+      "Manipulative",
+      "Jealous",
+      "Insensitive",
+      "Narcissistic",
+      "Impulsive",
+      "Judgmental",
+      "Argumentative",
+      "Spiteful",
+      "Controlling",
+      "Conceited",
+      "Unreliable"
+    ];
+    let can_commit_crime = undefined;
+    if (personality.filter((trait) => bad_traits.includes(trait)).length >= 3) {
+      can_commit_crime = true;
+    }
+    else {
+      can_commit_crime = false;
+    }
+    return can_commit_crime;
+  }
   function generatePersonality(n:number) {
     const personality:string[] = [];
     for (let i = 0; i < n; i++) {
@@ -39,11 +72,13 @@ function App() {
     const firstName = male_first_names[Math.floor(Math.random() * male_first_names.length)];
     const lastName = last_names[Math.floor(Math.random() * last_names.length)];
     const personality = generatePersonality(4);
+    const can_commit_crime = checkIfCanCommitACrime(personality);
     const img = `https://thispersondoesnotexist.com/`;
     const gender:string = 'male';
     const job = generateJob(gender);
     const male_npc = {
       personality,
+      can_commit_crime,
       firstName,
       lastName,
       gender,
@@ -58,11 +93,13 @@ function App() {
     const firstName = female_first_names[Math.floor(Math.random() * female_first_names.length)];
     const lastName = last_names[Math.floor(Math.random() * last_names.length)];
     const personality = generatePersonality(4)
+    const can_commit_crime = checkIfCanCommitACrime(personality);
     const img = `https://thispersondoesnotexist.com/`;
     const gender:string = 'female';
     const job = generateJob(gender)
     const female_npc = {
       personality,
+      can_commit_crime,
       firstName,
       lastName,
       img,
@@ -113,6 +150,12 @@ function App() {
                 <p><strong className="capitalize">Name:</strong> {family.father.firstName} {family.father.lastName}</p>
                 <p><strong className="capitalize">Job:</strong> <span className="capitalize">{family.father.job}</span></p>
                 <p><strong className="capitalize">Profile: </strong> {family.father.personality}</p>
+                {family.father.can_commit_crime ? (
+                  <p className="text-red-500 font-bold">This person can commit a crime</p>
+                ) : (
+                  <p className="text-green-500 font-bold">This person can't commit a crime</p>
+                
+                )}
               </div>
             </section>
             <section className="w-1/2">
@@ -121,6 +164,12 @@ function App() {
                 <p><strong className="capitalize">Name:</strong> {family.mother.firstName} {family.mother.lastName}</p>
                 <p><strong className="capitalize">Job:</strong> <span className="capitalize"> {family.mother.job} </span></p>
                 <p><strong className="capitalize">Profile: </strong> {family.mother.personality}</p>
+                {family.mother.can_commit_crime ? (
+                  <p className="text-red-500 font-bold">This person can commit a crime</p>
+                ) : (
+                  <p className="text-green-500 font-bold">This person can't commit a crime</p>
+                
+                )}
               </div>
             </section>
           </div>
